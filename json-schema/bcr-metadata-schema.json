@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bazel-build/main/json-schema/bcr-metadata-schema.json",
+  "title": "BCR Module Metadata",
+  "description": "Module-level metadata document served at /modules/{module}/metadata.json.",
+  "type": "object",
+  "required": ["versions"],
+  "properties": {
+    "homepage": {
+      "type": "string",
+      "format": "uri"
+    },
+    "maintainers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "github": { "type": "string" }
+        }
+      }
+    },
+    "versions": {
+      "type": "array",
+      "description": "All published version strings for this module, in publication order.",
+      "items": { "type": "string" }
+    },
+    "yanked_versions": {
+      "type": "object",
+      "description": "Map of yanked version to human-readable explanation. Bazel refuses to resolve a yanked version unless --allow_yanked_versions is set.",
+      "additionalProperties": { "type": "string" }
+    },
+    "repository": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

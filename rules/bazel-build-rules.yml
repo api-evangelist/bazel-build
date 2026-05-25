@@ -1,0 +1,57 @@
+extends: spectral:oas
+functionsDir: ./functions
+rules:
+  operation-summary-title-case:
+    description: Operation summaries should use Title Case.
+    severity: warn
+    given: $.paths.*[get,put,post,delete,options,head,patch,trace].summary
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z][A-Za-z0-9]*)(\s[A-Z][A-Za-z0-9]*)*$'
+  operation-operationid-camelcase:
+    description: operationId should use lowerCamelCase.
+    severity: warn
+    given: $.paths.*[get,put,post,delete,options,head,patch,trace].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[a-z][A-Za-z0-9]+$'
+  bcr-server-required:
+    description: BCR-style index registries must declare https://bcr.bazel.build or
+      a compatible registry root as a server.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: '^https://'
+  bcr-modules-path-shape:
+    description: Module-scoped paths must follow /modules/{module}/... shape per the
+      Bazel index-registry protocol.
+    severity: error
+    given: $.paths
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            '^(/bazel_registry\.json|/modules/\{module\}(/(metadata\.json|\{version\}(/(MODULE\.bazel|source\.json|presubmit\.yml))?))?)$': {}
+          additionalProperties:
+            type: object
+  module-name-pattern:
+    description: Module name parameter must be lowercase snake_case to match Bzlmod
+      module naming.
+    severity: warn
+    given: $.components.parameters.Module.schema.pattern
+    then:
+      function: truthy
+  tags-title-case:
+    description: Tags must use Title Case.
+    severity: warn
+    given: $.tags[*].name
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z][A-Za-z0-9]*)(\s[A-Z][A-Za-z0-9]*)*$'

@@ -1,0 +1,8 @@
+{
+  "type": "archive",
+  "url": "https://github.com/bazelbuild/rules_python/releases/download/0.40.0/rules_python-0.40.0.tar.gz",
+  "integrity": "sha256-+1S5SuC0fHCnvyMy/q4eA9eqGW4QwLpEqUEpKjsmh7w=",
+  "strip_prefix": "rules_python-0.40.0",
+  "patches": {},
+  "patch_strip": 1
+}

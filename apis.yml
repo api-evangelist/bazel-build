@@ -1,0 +1,311 @@
+aid: bazel-build
+name: Bazel
+description: Bazel is a fast, scalable, multi-language and extensible build tool open-sourced by Google. It supports
+  software projects of any size across Java, C++, Go, Python, Rust, Swift, Kotlin, Scala, Android, iOS, and many other
+  languages and platforms. Bazel uses a hermetic, sandboxed execution model with content-addressable caching, parallel
+  builds, and remote execution. The project ships the `bazel` CLI, the Starlark extension language for build rules, the
+  MODULE.bazel external-dependency system (Bzlmod), and the Bazel Central Registry — a public HTTP index registry that
+  hosts community-maintained Bazel modules.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+- Build Systems
+- Build Tool
+- Bzlmod
+- CI/CD
+- Developer Tools
+- Hermetic Builds
+- Monorepo
+- Open Source
+- Remote Execution
+- Starlark
+created: '2026-05-25'
+modified: '2026-05-25'
+url: https://raw.githubusercontent.com/api-evangelist/bazel-build/refs/heads/main/apis.yml
+specificationVersion: '0.19'
+apis:
+- aid: bazel-build:bazel-central-registry-api
+  name: Bazel Central Registry API
+  description: The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod, Bazel's external
+    dependency management system. The BCR exposes a stable HTTP layout at https://bcr.bazel.build/ that serves a
+    registry-wide bazel_registry.json plus per-module metadata.json, MODULE.bazel manifests, and source.json fetch
+    instructions. Since Bazel 8 Bzlmod is on by default, making the BCR the registry every Bazel install resolves
+    against unless --registry is overridden.
+  humanURL: https://registry.bazel.build/
+  baseURL: https://bcr.bazel.build
+  tags:
+  - Bzlmod
+  - Index Registry
+  - Modules
+  - Package Registry
+  properties:
+  - type: Documentation
+    url: https://bazel.build/external/registry
+  - type: Documentation
+    url: https://bazel.build/external/module
+  - type: Portal
+    url: https://registry.bazel.build/
+  - type: OpenAPI
+    url: openapi/bazel-central-registry-openapi.yml
+  - type: JSONSchema
+    url: json-schema/bcr-bazel-registry-schema.json
+  - type: JSONSchema
+    url: json-schema/bcr-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/bcr-source-schema.json
+  - type: GitHubRepository
+    url: https://github.com/bazelbuild/bazel-central-registry
+- aid: bazel-build:bazel-cli
+  name: Bazel Command Line Interface
+  description: The `bazel` command line tool is the primary user-facing surface of Bazel. It exposes commands such as
+    `build`, `test`, `run`, `query`, `cquery`, `aquery`, `mod`, `fetch`, `info`, `coverage`, and `clean`, plus the
+    BEP/BES streaming protocols for build event publishing. Bazelisk is the recommended launcher that pins the Bazel
+    version per project via .bazelversion.
+  humanURL: https://bazel.build/reference/command-line-reference
+  tags:
+  - CLI
+  - Commands
+  - Tooling
+  properties:
+  - type: Documentation
+    url: https://bazel.build/reference/command-line-reference
+  - type: Documentation
+    url: https://bazel.build/run/build
+  - type: Documentation
+    url: https://bazel.build/query/language
+  - type: Tool
+    url: https://github.com/bazelbuild/bazel
+  - type: Tool
+    url: https://github.com/bazelbuild/bazelisk
+- aid: bazel-build:bazel-starlark-api
+  name: Bazel Starlark Build API
+  description: Bazel's build rules, macros, and module extensions are written in Starlark — a deterministic Python
+    dialect. The Starlark Build API exposes the rule(), repository_rule(), module_extension(), aspect(), and provider()
+    primitives used to declare build targets, generate actions, and integrate new languages. BUILD, BUILD.bazel,
+    .bzl, MODULE.bazel, and WORKSPACE files are all evaluated by this API.
+  humanURL: https://bazel.build/rules
+  tags:
+  - BUILD
+  - DSL
+  - Extension
+  - Rules
+  - Starlark
+  properties:
+  - type: Documentation
+    url: https://bazel.build/rules
+  - type: Documentation
+    url: https://bazel.build/rules/language
+  - type: Documentation
+    url: https://bazel.build/extending/concepts
+  - type: APIReference
+    url: https://bazel.build/rules/lib/starlark-overview
+- aid: bazel-build:bazel-remote-execution-api
+  name: Bazel Remote Execution API
+  description: Bazel speaks the open Remote Execution API (REAPI), a gRPC protocol for content-addressable storage and
+    distributed action execution. REAPI lets Bazel offload compile, test, and link actions to a remote build farm and
+    share a Content-Addressable Store (CAS) and Action Cache across users and CI runners. Bazel implements the
+    client side; servers such as BuildBuddy, EngFlow, Buildbarn, Buildfarm, and Google RBE implement the server side.
+  humanURL: https://github.com/bazelbuild/remote-apis
+  tags:
+  - CAS
+  - Caching
+  - Distributed Builds
+  - gRPC
+  - Remote Execution
+  properties:
+  - type: Documentation
+    url: https://bazel.build/remote/rbe
+  - type: Documentation
+    url: https://bazel.build/remote/caching
+  - type: GitHubRepository
+    url: https://github.com/bazelbuild/remote-apis
+  - type: ProtocolBuffer
+    url: https://github.com/bazelbuild/remote-apis/blob/main/build/bazel/remote/execution/v2/remote_execution.proto
+- aid: bazel-build:bazel-build-event-protocol
+  name: Bazel Build Event Protocol
+  description: The Build Event Protocol (BEP) is Bazel's structured stream of build events — target configured,
+    progress, test results, action executed, build finished — emitted during every invocation. BEP can be written to a
+    local file (--build_event_json_file / --build_event_binary_file) or streamed via gRPC to a Build Event Service
+    (BES) backend for build observability, flake analysis, and CI dashboards.
+  humanURL: https://bazel.build/remote/bep
+  tags:
+  - BEP
+  - BES
+  - Build Events
+  - Observability
+  - Streaming
+  properties:
+  - type: Documentation
+    url: https://bazel.build/remote/bep
+  - type: Documentation
+    url: https://bazel.build/remote/bep-examples
+  - type: ProtocolBuffer
+    url: https://github.com/bazelbuild/bazel/blob/master/src/main/java/com/google/devtools/build/lib/buildeventstream/proto/build_event_stream.proto
+common:
+- type: Portal
+  url: https://bazel.build/
+- type: Documentation
+  url: https://bazel.build/docs
+- type: GettingStarted
+  url: https://bazel.build/start
+- type: APIReference
+  url: https://bazel.build/reference
+- type: Blog
+  url: https://blog.bazel.build/
+- type: GitHubOrganization
+  url: https://github.com/bazelbuild
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/bazel
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/bazel-central-registry
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/bazelisk
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/buildtools
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/bazel-gazelle
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/bazel-skylib
+- type: GitHubRepository
+  url: https://github.com/bazelbuild/remote-apis
+- type: ChangeLog
+  url: https://github.com/bazelbuild/bazel/releases
+- type: Issues
+  url: https://github.com/bazelbuild/bazel/issues
+- type: Roadmap
+  url: https://bazel.build/about/roadmap
+- type: Governance
+  url: https://bazel.build/contribute/contribution-policy
+- type: TermsOfService
+  url: https://github.com/bazelbuild/bazel/blob/master/LICENSE
+- type: Security
+  url: https://bazel.build/about/security
+- type: Forum
+  url: https://slack.bazel.build/
+- type: StackOverflow
+  url: https://stackoverflow.com/questions/tagged/bazel
+- type: Tool
+  url: https://github.com/bazelbuild/bazelisk
+  name: Bazelisk (Bazel version launcher)
+- type: Tool
+  url: https://github.com/bazelbuild/buildtools
+  name: Buildifier, Buildozer, Unused_deps formatters
+- type: Tool
+  url: https://github.com/bazelbuild/bazel-gazelle
+  name: Gazelle BUILD file generator
+- type: SDK
+  url: https://github.com/bazelbuild/rules_java
+  name: rules_java
+- type: SDK
+  url: https://github.com/bazelbuild/rules_cc
+  name: rules_cc
+- type: SDK
+  url: https://github.com/bazelbuild/rules_python
+  name: rules_python
+- type: SDK
+  url: https://github.com/bazelbuild/rules_go
+  name: rules_go
+- type: SDK
+  url: https://github.com/bazelbuild/rules_rust
+  name: rules_rust
+- type: SDK
+  url: https://github.com/bazelbuild/rules_swift
+  name: rules_swift
+- type: SDK
+  url: https://github.com/bazelbuild/rules_apple
+  name: rules_apple
+- type: SDK
+  url: https://github.com/bazelbuild/rules_kotlin
+  name: rules_kotlin
+- type: SDK
+  url: https://github.com/bazelbuild/rules_scala
+  name: rules_scala
+- type: SDK
+  url: https://github.com/bazelbuild/rules_nodejs
+  name: rules_nodejs
+- type: SDK
+  url: https://github.com/bazelbuild/rules_docker
+  name: rules_docker
+- type: SDK
+  url: https://github.com/bazelbuild/rules_oci
+  name: rules_oci
+- type: SDK
+  url: https://github.com/bazelbuild/rules_proto
+  name: rules_proto
+- type: SDK
+  url: https://github.com/bazelbuild/rules_pkg
+  name: rules_pkg
+- type: SDK
+  url: https://github.com/bazelbuild/bazel-skylib
+  name: bazel-skylib (common Starlark functions)
+- type: Plugins
+  url: https://github.com/bazelbuild/intellij
+  name: IntelliJ / CLion / Android Studio plugin
+- type: Plugins
+  url: https://github.com/bazelbuild/vscode-bazel
+  name: VS Code Bazel extension
+- type: CodeExamples
+  url: https://github.com/bazelbuild/examples
+  name: Bazel examples repository
+- type: Vocabulary
+  url: vocabulary/bazel-build-vocabulary.yml
+- type: JSONLD
+  url: json-ld/bazel-build-context.jsonld
+- type: SpectralRules
+  url: rules/bazel-build-rules.yml
+- type: License
+  url: https://github.com/bazelbuild/bazel/blob/master/LICENSE
+  name: Apache License 2.0
+- type: Features
+  data:
+  - name: Multi-Language Support
+    description: One build tool spans Java, C++, Go, Python, Rust, Swift, Kotlin, Scala, Android, iOS, Objective-C,
+      and dozens of community-maintained language rules.
+  - name: Hermetic, Reproducible Builds
+    description: Sandboxed action execution and explicit dependency declarations make Bazel builds reproducible across
+      machines and CI runners.
+  - name: Incremental Builds
+    description: Fine-grained action graph and Merkle-tree based caching mean only what changed gets rebuilt, even in
+      monorepos with millions of targets.
+  - name: Remote Caching and Execution
+    description: Bazel speaks the open Remote Execution API (REAPI) so teams can share a Content-Addressable Store and
+      offload actions to a remote build farm.
+  - name: Bzlmod External Dependencies
+    description: MODULE.bazel + the Bazel Central Registry replace the legacy WORKSPACE system with versioned,
+      transitive, registry-resolved modules.
+  - name: Starlark Extension Language
+    description: A deterministic Python-like DSL for writing custom rules, repository rules, module extensions, and
+      aspects without touching Bazel internals.
+  - name: Build Event Protocol
+    description: Every invocation emits a structured BEP/BES stream consumable by CI dashboards, observability tools,
+      and flake detectors.
+  - name: Query Languages
+    description: bazel query, cquery (configured), and aquery (action graph) let you inspect dependency graphs,
+      configuration transitions, and the actual actions Bazel will run.
+  - name: Toolchain Resolution
+    description: Platform-aware toolchain selection lets one BUILD graph target Linux, macOS, Windows, Android, iOS,
+      and embedded targets from the same source tree.
+  - name: Persistent Workers
+    description: Long-lived worker processes (javac, scalac, etc.) amortize JVM and compiler startup across many
+      actions for faster incremental builds.
+  - name: Bazel Central Registry
+    description: Default public index of Bazel modules at bcr.bazel.build with searchable UI at registry.bazel.build.
+  - name: Bazelisk Version Launcher
+    description: Pins the exact Bazel version per project via .bazelversion so every contributor and CI runner uses
+      the same build tool.
+  sources:
+  - https://bazel.build/
+  - https://github.com/bazelbuild/bazel
+  - https://github.com/bazelbuild/bazel-central-registry
+  - https://bazel.build/external/registry
+  - https://bazel.build/external/module
+  - https://bazel.build/remote/bep
+  - https://github.com/bazelbuild/remote-apis
+  updated: '2026-05-25'
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com

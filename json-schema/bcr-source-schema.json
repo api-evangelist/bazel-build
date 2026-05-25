@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bazel-build/main/json-schema/bcr-source-schema.json",
+  "title": "BCR Module Source",
+  "description": "Fetch instructions for a module version, served at /modules/{module}/{version}/source.json. The type discriminator selects the variant.",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["archive", "git_repository", "local_path"]
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["type", "url", "integrity"],
+      "properties": {
+        "type": { "const": "archive" },
+        "url": { "type": "string", "format": "uri" },
+        "integrity": { "type": "string", "description": "Subresource Integrity checksum." },
+        "strip_prefix": { "type": "string" },
+        "patches": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "patch_strip": { "type": "integer", "minimum": 0 },
+        "overlay": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["type", "remote"],
+      "properties": {
+        "type": { "const": "git_repository" },
+        "remote": { "type": "string", "format": "uri" },
+        "commit": { "type": "string" },
+        "tag": { "type": "string" },
+        "shallow_since": { "type": "string" },
+        "patches": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "patch_strip": { "type": "integer", "minimum": 0 }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["type", "path"],
+      "properties": {
+        "type": { "const": "local_path" },
+        "path": { "type": "string" }
+      }
+    }
+  ]
+}

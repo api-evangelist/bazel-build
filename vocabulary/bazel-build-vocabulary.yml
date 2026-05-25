@@ -1,0 +1,142 @@
+name: Bazel Build Vocabulary
+description: Normative terms used in the Bazel ecosystem — the build tool, the Starlark
+  extension language, Bzlmod external dependency system, and the Bazel Central Registry.
+version: '0.1'
+modified: '2026-05-25'
+namespaces:
+- prefix: bazel
+  uri: https://bazel.build/vocab/
+- prefix: schema
+  uri: https://schema.org/
+- prefix: spdx
+  uri: http://spdx.org/rdf/terms#
+concepts:
+- term: Bazel
+  definition: Fast, scalable, multi-language and extensible build tool open-sourced
+    by Google in 2015.
+- term: Bazelisk
+  definition: User-facing launcher that downloads and pins a specific Bazel version
+    per project via .bazelversion.
+- term: Workspace
+  definition: Root directory of a Bazel project, marked by a WORKSPACE, WORKSPACE.bazel,
+    or MODULE.bazel file at the top.
+- term: Module
+  definition: A versioned Bazel project published to a registry, declared by a
+    MODULE.bazel file at its root.
+- term: MODULE.bazel
+  definition: Starlark file at the root of a module declaring its name, version,
+    bazel_dep() entries, and module extensions. Replaces WORKSPACE under Bzlmod.
+- term: WORKSPACE
+  definition: Legacy external-dependency declaration file. Superseded by MODULE.bazel
+    in Bazel 8+ but still supported for backwards compatibility.
+- term: Bzlmod
+  definition: Bazel's modern external-dependency system. Resolves bazel_dep() entries
+    against one or more registries, producing a reproducible MODULE.bazel.lock.
+- term: Bazel Central Registry
+  definition: Public, community-maintained index registry hosted at bcr.bazel.build
+    and searchable at registry.bazel.build. Default registry for Bzlmod.
+- term: Registry
+  definition: HTTP-served collection of module metadata, MODULE.bazel manifests,
+    and source.json descriptors that Bazel consults to resolve external dependencies.
+- term: BUILD file
+  definition: Starlark file (BUILD or BUILD.bazel) that declares a package's targets
+    via rule invocations.
+- term: Target
+  definition: An individual buildable artifact addressable by label
+    (//path/to/pkg:name).
+- term: Label
+  definition: Canonical reference to a target — //pkg:name within a workspace, or
+    @repo//pkg:name for cross-repo references.
+- term: Rule
+  definition: Starlark function (created via rule()) that defines how a class of
+    targets is built. Examples: java_library, cc_binary, py_test.
+- term: Macro
+  definition: Starlark function that expands at loading time into one or more rule
+    invocations.
+- term: Aspect
+  definition: Starlark mechanism that walks an existing dependency graph and
+    attaches additional analysis (e.g. lint, coverage, IDE info) to each visited
+    target.
+- term: Provider
+  definition: Typed bag of information one rule passes to its dependents — e.g.
+    JavaInfo, CcInfo, DefaultInfo.
+- term: Module Extension
+  definition: Bzlmod entry point for non-trivial external-dependency logic.
+    Replaces the legacy repository_rule + WORKSPACE pattern.
+- term: Repository Rule
+  definition: Starlark function that fetches an external repository at workspace
+    load time.
+- term: Toolchain
+  definition: Bazel's pluggable mechanism for selecting compilers, linkers, and
+    runtimes per platform.
+- term: Platform
+  definition: A combination of CPU, OS, and other constraints used to drive
+    toolchain selection and configuration transitions.
+- term: Action
+  definition: A single command Bazel will execute — e.g. a compile, link, or test
+    invocation. Identified by a Merkle hash of its inputs.
+- term: Sandbox
+  definition: Restricted filesystem/process namespace in which Bazel runs actions
+    to enforce hermetic, reproducible builds.
+- term: CAS
+  definition: Content-Addressable Store. Backing storage for remote caching and
+    remote execution; addresses blobs by their SHA-256 digest.
+- term: Remote Execution
+  definition: Offloading action execution to a remote build farm over the gRPC
+    Remote Execution API (REAPI).
+- term: REAPI
+  definition: Remote Execution API. Open gRPC protocol defined at
+    github.com/bazelbuild/remote-apis and implemented by BuildBuddy, EngFlow,
+    Buildbarn, Buildfarm, and Google RBE.
+- term: BEP
+  definition: Build Event Protocol. Structured stream of build events emitted by
+    Bazel.
+- term: BES
+  definition: Build Event Service. gRPC service that accepts BEP streams for
+    storage and analysis.
+- term: Buildifier
+  definition: Formatter for BUILD, .bzl, and MODULE.bazel files. Part of
+    bazelbuild/buildtools.
+- term: Buildozer
+  definition: Command-line BUILD-file editor that performs targeted edits via a
+    query language. Part of bazelbuild/buildtools.
+- term: Gazelle
+  definition: BUILD-file generator that infers targets from source files. Default
+    for Go; pluggable for other languages.
+- term: bazel-skylib
+  definition: Common Starlark library used by most rulesets — selects, paths,
+    versions, dicts, collections.
+- term: Bzlmod Lockfile
+  definition: MODULE.bazel.lock file that records the exact resolved versions of
+    all transitive bazel_dep() entries. Committed to source control.
+- term: Yanked Version
+  definition: A module version marked withdrawn by its maintainers. Bazel refuses
+    to resolve a yanked version unless --allow_yanked_versions is set.
+- term: Starlark
+  definition: Deterministic Python-dialect DSL used in BUILD, .bzl, MODULE.bazel,
+    and WORKSPACE files. Originally developed for Bazel; now an independent
+    specification.
+operations:
+- term: bazel build
+  definition: Build one or more targets and write their outputs to bazel-bin.
+- term: bazel test
+  definition: Build and run test targets, producing test logs in
+    bazel-testlogs.
+- term: bazel run
+  definition: Build and execute a runnable target.
+- term: bazel query
+  definition: Pre-analysis query language over the loaded target graph.
+- term: bazel cquery
+  definition: Post-analysis configured query — includes configuration transitions.
+- term: bazel aquery
+  definition: Action graph query — inspects the actual commands Bazel will run.
+- term: bazel mod
+  definition: Bzlmod inspection commands — graph, deps, explain, show, tidy.
+- term: bazel fetch
+  definition: Fetch external repositories without building anything.
+- term: bazel info
+  definition: Print workspace and environment information.
+- term: bazel coverage
+  definition: Run tests and collect coverage data.
+- term: bazel clean
+  definition: Remove output artifacts.

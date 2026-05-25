@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@vocab": "https://schema.org/",
+    "bazel": "https://bazel.build/vocab/",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:softwareVersion",
+    "license": "spdx:License",
+    "BuildTool": "bazel:BuildTool",
+    "Registry": "bazel:Registry",
+    "Module": "bazel:Module",
+    "ModuleVersion": "bazel:ModuleVersion",
+    "Rule": "bazel:Rule",
+    "BuildTarget": "bazel:BuildTarget",
+    "Workspace": "bazel:Workspace",
+    "Toolchain": "bazel:Toolchain",
+    "RemoteCache": "bazel:RemoteCache",
+    "RemoteExecutor": "bazel:RemoteExecutor",
+    "BuildEvent": "bazel:BuildEvent",
+    "Action": "bazel:Action",
+    "Aspect": "bazel:Aspect",
+    "Provider": "bazel:Provider",
+    "ModuleExtension": "bazel:ModuleExtension",
+    "Maintainer": "schema:Person",
+    "homepage": "schema:url",
+    "repository": "schema:codeRepository",
+    "versions": {
+      "@id": "bazel:hasVersion",
+      "@container": "@set"
+    },
+    "yanked_versions": "bazel:yankedVersions",
+    "mirrors": {
+      "@id": "bazel:mirror",
+      "@container": "@set"
+    },
+    "module_base_path": "bazel:moduleBasePath",
+    "integrity": "spdx:checksum",
+    "strip_prefix": "bazel:stripPrefix",
+    "patches": "bazel:patches",
+    "overlay": "bazel:overlay",
+    "remote": "bazel:gitRemote",
+    "commit": "bazel:gitCommit",
+    "tag": "bazel:gitTag",
+    "path": "bazel:localPath"
+  },
+  "@graph": [
+    {
+      "@id": "https://bazel.build/",
+      "@type": "BuildTool",
+      "name": "Bazel",
+      "description": "Fast, scalable, multi-language and extensible build tool.",
+      "url": "https://bazel.build/",
+      "license": "Apache-2.0",
+      "repository": "https://github.com/bazelbuild/bazel"
+    },
+    {
+      "@id": "https://bcr.bazel.build/",
+      "@type": "Registry",
+      "name": "Bazel Central Registry",
+      "description": "Default index registry for Bzlmod, Bazel's external dependency system.",
+      "url": "https://registry.bazel.build/",
+      "repository": "https://github.com/bazelbuild/bazel-central-registry"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bazel-build/main/json-schema/bcr-bazel-registry-schema.json",
+  "title": "Bazel Registry Metadata",
+  "description": "Registry-wide metadata document served at /bazel_registry.json. Defined by https://bazel.build/external/registry.",
+  "type": "object",
+  "properties": {
+    "mirrors": {
+      "type": "array",
+      "description": "Optional ordered list of mirror URL prefixes Bazel will try before falling back to the archive's original URL.",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "module_base_path": {
+      "type": "string",
+      "description": "Base directory used to resolve local_path source descriptors. Required when any source.json uses type: local_path."
+    }
+  },
+  "additionalProperties": true
+}
