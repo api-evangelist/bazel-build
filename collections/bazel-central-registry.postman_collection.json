@@ -1,0 +1,730 @@
+{
+  "item": [
+    {
+      "id": "de86d3ac-71e0-442b-a98e-9f4b2caba4d6",
+      "name": "Registry",
+      "description": {
+        "content": "Registry-wide metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a01ce374-f3b9-4368-8288-00d607840709",
+          "name": "Get Registry Metadata",
+          "request": {
+            "name": "Get Registry Metadata",
+            "description": {
+              "content": "Returns the registry-wide metadata document. Lists optional source-archive mirrors and the base path for `local_path` source types. May be absent on minimal registries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bazel_registry.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6cbc039-9ca2-4153-8ef5-16546a6c0d4e",
+              "name": "Registry metadata document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bazel_registry.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mirrors\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46f31f6b-91bd-4693-91d3-be78687f4cee",
+              "name": "Registry does not publish a bazel_registry.json",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bazel_registry.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b0936080-e3f4-4b9a-a179-19fdfddfddc0",
+      "name": "Modules",
+      "description": {
+        "content": "Per-module metadata and version manifests",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0da9be5c-c6af-4cd1-864f-c778d55103fc",
+          "name": "Get Module Metadata",
+          "request": {
+            "name": "Get Module Metadata",
+            "description": {
+              "content": "Returns the module-level metadata document — homepage, maintainers, available versions, and any yanked versions with their explanations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "modules",
+                ":module",
+                "metadata.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "module",
+                  "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cbd5f347-4efc-4630-9d8f-4b9f610946a5",
+              "name": "Module metadata document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    "metadata.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"versions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"homepage\": \"http://IWsvIjEVqsZBU.acnZtW1cqN4ENx\",\n  \"maintainers\": [\n    {\n      \"name\": \"string\",\n      \"email\": \"yGIsZrp@hERUYxmpPjNfNdeGqaVZdDAFOvAcciH.lra\",\n      \"github\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"email\": \"9tWNMUKQP@LSgZecrjPI.aanl\",\n      \"github\": \"string\"\n    }\n  ],\n  \"yanked_versions\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"repository\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecae810a-4c45-427f-a392-378d238855c6",
+              "name": "Module not found in this registry",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    "metadata.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41c627df-488f-498d-9595-331309434b3e",
+          "name": "Get Module Manifest",
+          "request": {
+            "name": "Get Module Manifest",
+            "description": {
+              "content": "Returns the MODULE.bazel manifest for a specific version of a module. This is the Starlark file that declares the module's name, version, transitive bazel_dep() entries, module extensions, and use_repo() calls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "modules",
+                ":module",
+                ":version",
+                "MODULE.bazel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "module",
+                  "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b6e85d8-390a-426f-8422-05aef9419abe",
+              "name": "MODULE.bazel manifest as Starlark source",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    ":version",
+                    "MODULE.bazel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "990db438-7799-4e39-b204-65c54e768408",
+              "name": "Module or version not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    ":version",
+                    "MODULE.bazel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c2f2f91-9f8b-4b29-a6b5-17689d0d90d1",
+          "name": "Get Module Source",
+          "request": {
+            "name": "Get Module Source",
+            "description": {
+              "content": "Returns fetch instructions for the module source — archive URL and integrity hash, git repository + commit, or local path. Bazel uses this to download and stage the module source on disk.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "modules",
+                ":module",
+                ":version",
+                "source.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "module",
+                  "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fcf910b5-b4f9-4ec0-ac10-abeb7a07572e",
+              "name": "Source descriptor",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    ":version",
+                    "source.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"archive\",\n  \"url\": \"https://NBm.tteqUr9J6dRVWl+e9TSKfqaXT3cNFsyiTNACuLdG.8-11S0drwEC7snS6FP\",\n  \"integrity\": \"string\",\n  \"strip_prefix\": \"string\",\n  \"patches\": {\n    \"key_0\": \"string\"\n  },\n  \"patch_strip\": 2234,\n  \"overlay\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2227fb86-fd5a-4e30-a56c-339ab5e1def2",
+              "name": "Module or version not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    ":version",
+                    "source.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c4bc1df-fa08-477e-b357-88eaab116c41",
+          "name": "Get Module Presubmit Configuration",
+          "request": {
+            "name": "Get Module Presubmit Configuration",
+            "description": {
+              "content": "Returns the Buildkite-format presubmit CI configuration the BCR uses to verify each module version. This file is specific to the Bazel Central Registry — it is not part of the generic index-registry protocol.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "modules",
+                ":module",
+                ":version",
+                "presubmit.yml"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "module",
+                  "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "version",
+                  "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/yaml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cbe4261-1448-4ef2-8db2-5117cde66937",
+              "name": "Presubmit configuration in YAML",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    ":version",
+                    "presubmit.yml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/yaml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/yaml"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9cfb25e1-747b-4db2-8c94-03c4cbc2e778",
+              "name": "Module, version, or presubmit file not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "modules",
+                    ":module",
+                    ":version",
+                    "presubmit.yml"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "module",
+                      "description": "(Required) Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "version",
+                      "description": "(Required) Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bcr.bazel.build",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "21792c47-7c54-46b3-a54d-b44c86875b19",
+    "name": "Bazel Central Registry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod,\nBazel's external dependency management system. It exposes a stable, file-based HTTP\nlayout that any Bazel-compatible index registry can implement.\n\nThe protocol is defined at https://bazel.build/external/registry. Servers serve\nstatic JSON and Starlark files at well-known paths under the registry root. The\ncanonical instance is hosted by the Bazel team at https://bcr.bazel.build/, with a\nsearchable web UI at https://registry.bazel.build/.\n\nBazel itself acts as the client: when Bzlmod resolves `bazel_dep(name = \"foo\", version = \"1.2.3\")`,\nit fetches `/modules/foo/metadata.json`, `/modules/foo/1.2.3/MODULE.bazel`, and\n`/modules/foo/1.2.3/source.json` to compute the dependency graph and download the\nsource archive.\n\n\nContact Support:\n Name: Bazel Central Registry maintainers",
+      "type": "text/plain"
+    }
+  }
+}

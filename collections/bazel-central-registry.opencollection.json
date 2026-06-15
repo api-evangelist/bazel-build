@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bazel Central Registry API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Registry Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bcr.bazel.build/bazel_registry.json"
+          },
+          "docs": "Returns the registry-wide metadata document. Lists optional source-archive mirrors and the base path for `local_path` source types. May be absent on minimal registries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Modules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Module Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bcr.bazel.build/modules/:module/metadata.json",
+            "params": [
+              {
+                "name": "module",
+                "value": "",
+                "type": "path",
+                "description": "Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+              }
+            ]
+          },
+          "docs": "Returns the module-level metadata document — homepage, maintainers, available versions, and any yanked versions with their explanations."
+        },
+        {
+          "info": {
+            "name": "Get Module Manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bcr.bazel.build/modules/:module/:version/MODULE.bazel",
+            "params": [
+              {
+                "name": "module",
+                "value": "",
+                "type": "path",
+                "description": "Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+              }
+            ]
+          },
+          "docs": "Returns the MODULE.bazel manifest for a specific version of a module. This is the Starlark file that declares the module's name, version, transitive bazel_dep() entries, module extensions, and use_repo() calls."
+        },
+        {
+          "info": {
+            "name": "Get Module Source",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bcr.bazel.build/modules/:module/:version/source.json",
+            "params": [
+              {
+                "name": "module",
+                "value": "",
+                "type": "path",
+                "description": "Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+              }
+            ]
+          },
+          "docs": "Returns fetch instructions for the module source — archive URL and integrity hash, git repository + commit, or local path. Bazel uses this to download and stage the module source on disk."
+        },
+        {
+          "info": {
+            "name": "Get Module Presubmit Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bcr.bazel.build/modules/:module/:version/presubmit.yml",
+            "params": [
+              {
+                "name": "module",
+                "value": "",
+                "type": "path",
+                "description": "Module name, e.g. `rules_python`, `rules_go`, `protobuf`."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "path",
+                "description": "Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`."
+              }
+            ]
+          },
+          "docs": "Returns the Buildkite-format presubmit CI configuration the BCR uses to verify each module version. This file is specific to the Bazel Central Registry — it is not part of the generic index-registry protocol."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
