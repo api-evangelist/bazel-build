@@ -2,11 +2,11 @@
   "repo": "bazel-build",
   "feeds": [
     {
-      "source": "https://blog.bazel.build/",
+      "source": "https://blog.bazel.build/feed.xml",
       "feed_url": "https://blog.bazel.build/feed.xml",
       "title": "",
       "saved": 0,
-      "method": "discovered"
+      "method": "feed"
     },
     {
       "source": "https://bazel.build/reference",
@@ -17,5 +17,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z"
 }

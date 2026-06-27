@@ -75,9 +75,9 @@ apis:
     url: https://bazel.build/run/build
   - type: Documentation
     url: https://bazel.build/query/language
-  - type: Tool
+  - type: Tools
     url: https://github.com/bazelbuild/bazel
-  - type: Tool
+  - type: Tools
     url: https://github.com/bazelbuild/bazelisk
 - aid: bazel-build:bazel-starlark-api
   name: Bazel Starlark Build API
@@ -174,7 +174,7 @@ common:
   url: https://github.com/bazelbuild/bazel/releases
 - type: Issues
   url: https://github.com/bazelbuild/bazel/issues
-- type: Roadmap
+- type: RoadMap
   url: https://bazel.build/about/roadmap
 - type: Governance
   url: https://bazel.build/contribute/contribution-policy
@@ -182,62 +182,62 @@ common:
   url: https://github.com/bazelbuild/bazel/blob/master/LICENSE
 - type: Security
   url: https://bazel.build/about/security
-- type: Forum
+- type: Forums
   url: https://slack.bazel.build/
 - type: StackOverflow
   url: https://stackoverflow.com/questions/tagged/bazel
-- type: Tool
+- type: Tools
   url: https://github.com/bazelbuild/bazelisk
   name: Bazelisk (Bazel version launcher)
-- type: Tool
+- type: Tools
   url: https://github.com/bazelbuild/buildtools
   name: Buildifier, Buildozer, Unused_deps formatters
-- type: Tool
+- type: Tools
   url: https://github.com/bazelbuild/bazel-gazelle
   name: Gazelle BUILD file generator
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_java
   name: rules_java
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_cc
   name: rules_cc
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_python
   name: rules_python
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_go
   name: rules_go
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_rust
   name: rules_rust
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_swift
   name: rules_swift
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_apple
   name: rules_apple
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_kotlin
   name: rules_kotlin
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_scala
   name: rules_scala
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_nodejs
   name: rules_nodejs
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_docker
   name: rules_docker
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_oci
   name: rules_oci
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_proto
   name: rules_proto
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/rules_pkg
   name: rules_pkg
-- type: SDK
+- type: SDKs
   url: https://github.com/bazelbuild/bazel-skylib
   name: bazel-skylib (common Starlark functions)
 - type: Plugins
