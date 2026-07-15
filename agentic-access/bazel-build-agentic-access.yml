@@ -1,0 +1,64 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/bazel-central-registry-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 5
+  by_action_class:
+    connected: 5
+  by_consequence:
+    read: 5
+  human_in_the_loop_required: 0
+operations:
+- path: /bazel_registry.json
+  method: get
+  operationId: getRegistryMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/{module}/metadata.json
+  method: get
+  operationId: getModuleMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/{module}/{version}/MODULE.bazel
+  method: get
+  operationId: getModuleManifest
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/{module}/{version}/source.json
+  method: get
+  operationId: getModuleSource
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /modules/{module}/{version}/presubmit.yml
+  method: get
+  operationId: getModulePresubmit
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

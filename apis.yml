@@ -144,6 +144,8 @@ apis:
   - type: ProtocolBuffer
     url: https://github.com/bazelbuild/bazel/blob/master/src/main/java/com/google/devtools/build/lib/buildeventstream/proto/build_event_stream.proto
 common:
+- type: AgenticAccess
+  url: agentic-access/bazel-build-agentic-access.yml
 - type: DomainSecurity
   url: security/bazel-build-domain-security.yml
 - type: Portal
