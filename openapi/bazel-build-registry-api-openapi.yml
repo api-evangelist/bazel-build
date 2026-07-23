@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Bazel Central Modules Registry API
+  description: 'The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod,
+
+    Bazel''s external dependency management system. It exposes a stable, file-based HTTP
+
+    layout that any Bazel-compatible index registry can implement.
+
+
+    The protocol is defined at https://bazel.build/external/registry. Servers serve
+
+    static JSON and Starlark files at well-known paths under the registry root. The
+
+    canonical instance is hosted by the Bazel team at https://bcr.bazel.build/, with a
+
+    searchable web UI at https://registry.bazel.build/.
+
+
+    Bazel itself acts as the client: when Bzlmod resolves `bazel_dep(name = "foo", version = "1.2.3")`,
+
+    it fetches `/modules/foo/metadata.json`, `/modules/foo/1.2.3/MODULE.bazel`, and
+
+    `/modules/foo/1.2.3/source.json` to compute the dependency graph and download the
+
+    source archive.
+
+    '
+  version: '1.0'
+  license:
+    name: Apache 2.0
+    url: https://github.com/bazelbuild/bazel-central-registry/blob/main/LICENSE
+  contact:
+    name: Bazel Central Registry maintainers
+    url: https://github.com/bazelbuild/bazel-central-registry
+servers:
+- url: https://bcr.bazel.build
+  description: Canonical Bazel Central Registry
+tags:
+- name: Registry
+  description: Registry-wide metadata
+paths:
+  /bazel_registry.json:
+    get:
+      tags:
+      - Registry
+      summary: Get Registry Metadata
+      description: Returns the registry-wide metadata document. Lists optional source-archive mirrors and the base path for `local_path` source types. May be absent on minimal registries.
+      operationId: getRegistryMetadata
+      responses:
+        '200':
+          description: Registry metadata document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BazelRegistry'
+              example:
+                mirrors: []
+        '404':
+          description: Registry does not publish a bazel_registry.json
+components:
+  schemas:
+    BazelRegistry:
+      type: object
+      description: Registry-wide metadata served at /bazel_registry.json.
+      properties:
+        mirrors:
+          type: array
+          description: Optional mirrors Bazel will try before falling back to the archive's original URL.
+          items:
+            type: string
+            format: uri
+        module_base_path:
+          type: string
+          description: Base path used to resolve `local_path` source descriptors.
