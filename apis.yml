@@ -7,9 +7,20 @@ description: Bazel is a fast, scalable, multi-language and extensible build tool
   MODULE.bazel external-dependency system (Bzlmod), and the Bazel Central Registry — a public HTTP index registry that
   hosts community-maintained Bazel modules.
 type: Index
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bazel-build.png
 tags:
 - Build Systems
 - Build Tool
@@ -26,43 +37,13 @@ modified: '2026-05-25'
 url: https://raw.githubusercontent.com/api-evangelist/bazel-build/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: bazel-build:bazel-central-registry-api
-  name: Bazel Central Registry API
-  description: The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod, Bazel's external
-    dependency management system. The BCR exposes a stable HTTP layout at https://bcr.bazel.build/ that serves a
-    registry-wide bazel_registry.json plus per-module metadata.json, MODULE.bazel manifests, and source.json fetch
-    instructions. Since Bazel 8 Bzlmod is on by default, making the BCR the registry every Bazel install resolves
-    against unless --registry is overridden.
-  humanURL: https://registry.bazel.build/
-  baseURL: https://bcr.bazel.build
-  tags:
-  - Bzlmod
-  - Index Registry
-  - Modules
-  - Package Registry
-  properties:
-  - type: Documentation
-    url: https://bazel.build/external/registry
-  - type: Documentation
-    url: https://bazel.build/external/module
-  - type: Portal
-    url: https://registry.bazel.build/
-  - type: OpenAPI
-    url: openapi/bazel-central-registry-openapi.yml
-  - type: JSONSchema
-    url: json-schema/bcr-bazel-registry-schema.json
-  - type: JSONSchema
-    url: json-schema/bcr-metadata-schema.json
-  - type: JSONSchema
-    url: json-schema/bcr-source-schema.json
-  - type: GitHubRepository
-    url: https://github.com/bazelbuild/bazel-central-registry
 - aid: bazel-build:bazel-cli
   name: Bazel Command Line Interface
-  description: The `bazel` command line tool is the primary user-facing surface of Bazel. It exposes commands such as
-    `build`, `test`, `run`, `query`, `cquery`, `aquery`, `mod`, `fetch`, `info`, `coverage`, and `clean`, plus the
-    BEP/BES streaming protocols for build event publishing. Bazelisk is the recommended launcher that pins the Bazel
-    version per project via .bazelversion.
+  description: >-
+    The `bazel` command line tool is the primary user-facing surface of Bazel. It exposes commands such
+    as `build`, `test`, `run`, `query`, `cquery`, `aquery`, `mod`, `fetch`, `info`, `coverage`, and `clean`,
+    plus the BEP/BES streaming protocols for build event publishing. Bazelisk is the recommended launcher
+    that pins the Bazel version per project via .bazelversion.
   humanURL: https://bazel.build/reference/command-line-reference
   tags:
   - CLI
@@ -81,10 +62,11 @@ apis:
     url: https://github.com/bazelbuild/bazelisk
 - aid: bazel-build:bazel-starlark-api
   name: Bazel Starlark Build API
-  description: Bazel's build rules, macros, and module extensions are written in Starlark — a deterministic Python
-    dialect. The Starlark Build API exposes the rule(), repository_rule(), module_extension(), aspect(), and provider()
-    primitives used to declare build targets, generate actions, and integrate new languages. BUILD, BUILD.bazel,
-    .bzl, MODULE.bazel, and WORKSPACE files are all evaluated by this API.
+  description: >-
+    Bazel's build rules, macros, and module extensions are written in Starlark — a deterministic Python
+    dialect. The Starlark Build API exposes the rule(), repository_rule(), module_extension(), aspect(),
+    and provider() primitives used to declare build targets, generate actions, and integrate new languages.
+    BUILD, BUILD.bazel, .bzl, MODULE.bazel, and WORKSPACE files are all evaluated by this API.
   humanURL: https://bazel.build/rules
   tags:
   - BUILD
@@ -103,10 +85,12 @@ apis:
     url: https://bazel.build/rules/lib/starlark-overview
 - aid: bazel-build:bazel-remote-execution-api
   name: Bazel Remote Execution API
-  description: Bazel speaks the open Remote Execution API (REAPI), a gRPC protocol for content-addressable storage and
-    distributed action execution. REAPI lets Bazel offload compile, test, and link actions to a remote build farm and
-    share a Content-Addressable Store (CAS) and Action Cache across users and CI runners. Bazel implements the
-    client side; servers such as BuildBuddy, EngFlow, Buildbarn, Buildfarm, and Google RBE implement the server side.
+  description: >-
+    Bazel speaks the open Remote Execution API (REAPI), a gRPC protocol for content-addressable storage
+    and distributed action execution. REAPI lets Bazel offload compile, test, and link actions to a remote
+    build farm and share a Content-Addressable Store (CAS) and Action Cache across users and CI runners.
+    Bazel implements the client side; servers such as BuildBuddy, EngFlow, Buildbarn, Buildfarm, and Google
+    RBE implement the server side.
   humanURL: https://github.com/bazelbuild/remote-apis
   tags:
   - CAS
@@ -122,13 +106,15 @@ apis:
   - type: GitHubRepository
     url: https://github.com/bazelbuild/remote-apis
   - type: ProtocolBuffer
-    url: https://github.com/bazelbuild/remote-apis/blob/main/build/bazel/remote/execution/v2/remote_execution.proto
+    url: >-
+      https://github.com/bazelbuild/remote-apis/blob/main/build/bazel/remote/execution/v2/remote_execution.proto
 - aid: bazel-build:bazel-build-event-protocol
   name: Bazel Build Event Protocol
-  description: The Build Event Protocol (BEP) is Bazel's structured stream of build events — target configured,
-    progress, test results, action executed, build finished — emitted during every invocation. BEP can be written to a
-    local file (--build_event_json_file / --build_event_binary_file) or streamed via gRPC to a Build Event Service
-    (BES) backend for build observability, flake analysis, and CI dashboards.
+  description: >-
+    The Build Event Protocol (BEP) is Bazel's structured stream of build events — target configured, progress,
+    test results, action executed, build finished — emitted during every invocation. BEP can be written
+    to a local file (--build_event_json_file / --build_event_binary_file) or streamed via gRPC to a Build
+    Event Service (BES) backend for build observability, flake analysis, and CI dashboards.
   humanURL: https://bazel.build/remote/bep
   tags:
   - BEP
@@ -142,7 +128,56 @@ apis:
   - type: Documentation
     url: https://bazel.build/remote/bep-examples
   - type: ProtocolBuffer
-    url: https://github.com/bazelbuild/bazel/blob/master/src/main/java/com/google/devtools/build/lib/buildeventstream/proto/build_event_stream.proto
+    url: >-
+      https://github.com/bazelbuild/bazel/blob/master/src/main/java/com/google/devtools/build/lib/buildeventstream/proto/build_event_stream.proto
+- aid: bazel-build:bazel-build-modules-api
+  name: Bazel Modules API
+  description: Per-module metadata and version manifests
+  humanURL: https://registry.bazel.build/
+  baseURL: https://bcr.bazel.build
+  tags:
+  - Modules
+  properties:
+  - type: OpenAPI
+    url: openapi/bazel-build-modules-api-openapi.yml
+  - type: Documentation
+    url: https://bazel.build/external/registry
+  - type: Documentation
+    url: https://bazel.build/external/module
+  - type: Portal
+    url: https://registry.bazel.build/
+  - type: JSONSchema
+    url: json-schema/bcr-bazel-registry-schema.json
+  - type: JSONSchema
+    url: json-schema/bcr-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/bcr-source-schema.json
+  - type: GitHubRepository
+    url: https://github.com/bazelbuild/bazel-central-registry
+- aid: bazel-build:bazel-build-registry-api
+  name: Bazel Registry API
+  description: Registry-wide metadata
+  humanURL: https://registry.bazel.build/
+  baseURL: https://bcr.bazel.build
+  tags:
+  - Registry
+  properties:
+  - type: OpenAPI
+    url: openapi/bazel-build-registry-api-openapi.yml
+  - type: Documentation
+    url: https://bazel.build/external/registry
+  - type: Documentation
+    url: https://bazel.build/external/module
+  - type: Portal
+    url: https://registry.bazel.build/
+  - type: JSONSchema
+    url: json-schema/bcr-bazel-registry-schema.json
+  - type: JSONSchema
+    url: json-schema/bcr-metadata-schema.json
+  - type: JSONSchema
+    url: json-schema/bcr-source-schema.json
+  - type: GitHubRepository
+    url: https://github.com/bazelbuild/bazel-central-registry
 common:
 - type: AgenticAccess
   url: agentic-access/bazel-build-agentic-access.yml
