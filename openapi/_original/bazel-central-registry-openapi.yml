@@ -1,0 +1,300 @@
+openapi: 3.0.3
+info:
+  title: Bazel Central Registry API
+  description: |
+    The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod,
+    Bazel's external dependency management system. It exposes a stable, file-based HTTP
+    layout that any Bazel-compatible index registry can implement.
+
+    The protocol is defined at https://bazel.build/external/registry. Servers serve
+    static JSON and Starlark files at well-known paths under the registry root. The
+    canonical instance is hosted by the Bazel team at https://bcr.bazel.build/, with a
+    searchable web UI at https://registry.bazel.build/.
+
+    Bazel itself acts as the client: when Bzlmod resolves `bazel_dep(name = "foo", version = "1.2.3")`,
+    it fetches `/modules/foo/metadata.json`, `/modules/foo/1.2.3/MODULE.bazel`, and
+    `/modules/foo/1.2.3/source.json` to compute the dependency graph and download the
+    source archive.
+  version: '1.0'
+  license:
+    name: Apache 2.0
+    url: https://github.com/bazelbuild/bazel-central-registry/blob/main/LICENSE
+  contact:
+    name: Bazel Central Registry maintainers
+    url: https://github.com/bazelbuild/bazel-central-registry
+servers:
+- url: https://bcr.bazel.build
+  description: Canonical Bazel Central Registry
+tags:
+- name: Registry
+  description: Registry-wide metadata
+- name: Modules
+  description: Per-module metadata and version manifests
+paths:
+  /bazel_registry.json:
+    get:
+      tags:
+      - Registry
+      summary: Get Registry Metadata
+      description: Returns the registry-wide metadata document. Lists optional source-archive
+        mirrors and the base path for `local_path` source types. May be absent on minimal
+        registries.
+      operationId: getRegistryMetadata
+      responses:
+        '200':
+          description: Registry metadata document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BazelRegistry'
+              example:
+                mirrors: []
+        '404':
+          description: Registry does not publish a bazel_registry.json
+  /modules/{module}/metadata.json:
+    get:
+      tags:
+      - Modules
+      summary: Get Module Metadata
+      description: Returns the module-level metadata document — homepage, maintainers,
+        available versions, and any yanked versions with their explanations.
+      operationId: getModuleMetadata
+      parameters:
+      - $ref: '#/components/parameters/Module'
+      responses:
+        '200':
+          description: Module metadata document
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleMetadata'
+        '404':
+          description: Module not found in this registry
+  /modules/{module}/{version}/MODULE.bazel:
+    get:
+      tags:
+      - Modules
+      summary: Get Module Manifest
+      description: Returns the MODULE.bazel manifest for a specific version of a module.
+        This is the Starlark file that declares the module's name, version, transitive
+        bazel_dep() entries, module extensions, and use_repo() calls.
+      operationId: getModuleManifest
+      parameters:
+      - $ref: '#/components/parameters/Module'
+      - $ref: '#/components/parameters/Version'
+      responses:
+        '200':
+          description: MODULE.bazel manifest as Starlark source
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: Starlark source code for the module manifest.
+        '404':
+          description: Module or version not found
+  /modules/{module}/{version}/source.json:
+    get:
+      tags:
+      - Modules
+      summary: Get Module Source
+      description: Returns fetch instructions for the module source — archive URL and
+        integrity hash, git repository + commit, or local path. Bazel uses this to
+        download and stage the module source on disk.
+      operationId: getModuleSource
+      parameters:
+      - $ref: '#/components/parameters/Module'
+      - $ref: '#/components/parameters/Version'
+      responses:
+        '200':
+          description: Source descriptor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleSource'
+        '404':
+          description: Module or version not found
+  /modules/{module}/{version}/presubmit.yml:
+    get:
+      tags:
+      - Modules
+      summary: Get Module Presubmit Configuration
+      description: Returns the Buildkite-format presubmit CI configuration the BCR uses
+        to verify each module version. This file is specific to the Bazel Central
+        Registry — it is not part of the generic index-registry protocol.
+      operationId: getModulePresubmit
+      parameters:
+      - $ref: '#/components/parameters/Module'
+      - $ref: '#/components/parameters/Version'
+      responses:
+        '200':
+          description: Presubmit configuration in YAML
+          content:
+            text/yaml:
+              schema:
+                type: string
+        '404':
+          description: Module, version, or presubmit file not found
+components:
+  parameters:
+    Module:
+      name: module
+      in: path
+      required: true
+      description: Module name, e.g. `rules_python`, `rules_go`, `protobuf`.
+      schema:
+        type: string
+        pattern: ^[a-z][a-z0-9_]*$
+    Version:
+      name: version
+      in: path
+      required: true
+      description: Module version string. Bazel uses an extended SemVer ordering that
+        also tolerates suffixes such as `1.2.3.bcr.1`.
+      schema:
+        type: string
+  schemas:
+    BazelRegistry:
+      type: object
+      description: Registry-wide metadata served at /bazel_registry.json.
+      properties:
+        mirrors:
+          type: array
+          description: Optional mirrors Bazel will try before falling back to the
+            archive's original URL.
+          items:
+            type: string
+            format: uri
+        module_base_path:
+          type: string
+          description: Base path used to resolve `local_path` source descriptors.
+    ModuleMetadata:
+      type: object
+      description: Module-level metadata served at /modules/{module}/metadata.json.
+      required:
+      - versions
+      properties:
+        homepage:
+          type: string
+          format: uri
+          description: Project homepage.
+        maintainers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Maintainer'
+        versions:
+          type: array
+          description: All published version strings for this module, in publication
+            order.
+          items:
+            type: string
+        yanked_versions:
+          type: object
+          description: Map of yanked versions to a human-readable explanation. Bazel
+            will refuse to resolve a yanked version unless --allow_yanked_versions
+            is set.
+          additionalProperties:
+            type: string
+        repository:
+          type: array
+          items:
+            type: string
+          description: Optional upstream repository URLs.
+    Maintainer:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        github:
+          type: string
+    ModuleSource:
+      type: object
+      description: Fetch instructions served at /modules/{module}/{version}/source.json.
+        The `type` discriminator selects the variant.
+      required:
+      - type
+      discriminator:
+        propertyName: type
+        mapping:
+          archive: '#/components/schemas/ArchiveSource'
+          git_repository: '#/components/schemas/GitRepositorySource'
+          local_path: '#/components/schemas/LocalPathSource'
+      oneOf:
+      - $ref: '#/components/schemas/ArchiveSource'
+      - $ref: '#/components/schemas/GitRepositorySource'
+      - $ref: '#/components/schemas/LocalPathSource'
+    ArchiveSource:
+      type: object
+      required:
+      - type
+      - url
+      - integrity
+      properties:
+        type:
+          type: string
+          enum: [archive]
+        url:
+          type: string
+          format: uri
+          description: URL of the source archive (tar.gz, zip, etc.).
+        integrity:
+          type: string
+          description: Subresource Integrity (SRI) checksum of the archive.
+        strip_prefix:
+          type: string
+          description: Path prefix stripped from each archive entry.
+        patches:
+          type: object
+          description: Map of patch filename to SRI integrity. Patches live under
+            /modules/{module}/{version}/patches/.
+          additionalProperties:
+            type: string
+        patch_strip:
+          type: integer
+          description: Number of leading path components stripped from each patch.
+        overlay:
+          type: object
+          description: Map of overlay filename to SRI integrity. Files live under
+            /modules/{module}/{version}/overlay/ and are written into the source
+            tree after extraction.
+          additionalProperties:
+            type: string
+    GitRepositorySource:
+      type: object
+      required:
+      - type
+      - remote
+      properties:
+        type:
+          type: string
+          enum: [git_repository]
+        remote:
+          type: string
+          format: uri
+        commit:
+          type: string
+        tag:
+          type: string
+        shallow_since:
+          type: string
+        patches:
+          type: object
+          additionalProperties:
+            type: string
+        patch_strip:
+          type: integer
+    LocalPathSource:
+      type: object
+      required:
+      - type
+      - path
+      properties:
+        type:
+          type: string
+          enum: [local_path]
+        path:
+          type: string
+          description: Filesystem path resolved relative to bazel_registry.json's
+            module_base_path.

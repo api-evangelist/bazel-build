@@ -1,0 +1,16 @@
+{
+  "provider": "bazel-build",
+  "sources": [
+    "bazel-build-modules-api-openapi.yml",
+    "bazel-build-registry-api-openapi.yml"
+  ],
+  "outputs": [
+    "bazel-build-modules-api-openapi.yml",
+    "bazel-build-registry-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
