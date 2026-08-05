@@ -48,8 +48,7 @@ concepts:
   definition: Canonical reference to a target — //pkg:name within a workspace, or
     @repo//pkg:name for cross-repo references.
 - term: Rule
-  definition: Starlark function (created via rule()) that defines how a class of
-    targets is built. Examples: java_library, cc_binary, py_test.
+  definition: "Starlark function (created via rule()) that defines how a class of targets is built. Examples: java_library, cc_binary, py_test."
 - term: Macro
   definition: Starlark function that expands at loading time into one or more rule
     invocations.
