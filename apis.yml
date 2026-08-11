@@ -179,6 +179,12 @@ apis:
   - type: GitHubRepository
     url: https://github.com/bazelbuild/bazel-central-registry
 common:
+- type: IssueTracker
+  url: https://github.com/bazelbuild/remote-apis/issues
+- type: Releases
+  url: https://github.com/bazelbuild/remote-apis/releases
+- type: ContributionGuide
+  url: https://github.com/bazelbuild/remote-apis/blob/main/CONTRIBUTING.md
 - type: AgenticAccess
   url: agentic-access/bazel-build-agentic-access.yml
 - type: DomainSecurity
