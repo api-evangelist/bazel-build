@@ -1,0 +1,131 @@
+{
+  "item": [
+    {
+      "id": "7ccf42ee-9873-409f-bdf0-aea3a954a1e0",
+      "name": "Registry",
+      "description": {
+        "content": "Registry-wide metadata",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8149dd3a-7117-487a-a4fd-ac26748202cf",
+          "name": "Get Registry Metadata",
+          "request": {
+            "name": "Get Registry Metadata",
+            "description": {
+              "content": "Returns the registry-wide metadata document. Lists optional source-archive mirrors and the base path for `local_path` source types. May be absent on minimal registries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bazel_registry.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ff49257-8c27-4d46-997c-dba5b4e4a4e9",
+              "name": "Registry metadata document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bazel_registry.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"mirrors\": []\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cf954dd-b7cf-4000-ad59-2b816df53fc3",
+              "name": "Registry does not publish a bazel_registry.json",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bazel_registry.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://bcr.bazel.build",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c1e872f3-e096-49dc-9741-2e3098887859",
+    "name": "Bazel Central Modules Registry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod,\nBazel's external dependency management system. It exposes a stable, file-based HTTP\nlayout that any Bazel-compatible index registry can implement.\n\nThe protocol is defined at https://bazel.build/external/registry. Servers serve\nstatic JSON and Starlark files at well-known paths under the registry root. The\ncanonical instance is hosted by the Bazel team at https://bcr.bazel.build/, with a\nsearchable web UI at https://registry.bazel.build/.\n\nBazel itself acts as the client: when Bzlmod resolves `bazel_dep(name = \"foo\", version = \"1.2.3\")`,\nit fetches `/modules/foo/metadata.json`, `/modules/foo/1.2.3/MODULE.bazel`, and\n`/modules/foo/1.2.3/source.json` to compute the dependency graph and download the\nsource archive.\n\n\nContact Support:\n Name: Bazel Central Registry maintainers",
+      "type": "text/plain"
+    }
+  }
+}

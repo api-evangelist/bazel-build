@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Bazel Central Modules Registry API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Registry Metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://bcr.bazel.build/bazel_registry.json"
+          },
+          "docs": "Returns the registry-wide metadata document. Lists optional source-archive mirrors and the base path for `local_path` source types. May be absent on minimal registries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
