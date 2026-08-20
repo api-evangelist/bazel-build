@@ -23,6 +23,17 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bazel-build.png
 tags:
 - Build Systems
+- Build Tools
+- Bzlmod
+- CI/CD
+- Developer Tools
+- Hermetic Builds
+- Monorepo
+- Open-Source
+- Remote Execution
+- Starlark
+tags_raw:
+- Build Systems
 - Build Tool
 - Bzlmod
 - CI/CD
@@ -69,6 +80,12 @@ apis:
     BUILD, BUILD.bazel, .bzl, MODULE.bazel, and WORKSPACE files are all evaluated by this API.
   humanURL: https://bazel.build/rules
   tags:
+  - Builds
+  - DSL
+  - Extension
+  - Rules
+  - Starlark
+  tags_raw:
   - BUILD
   - DSL
   - Extension
