@@ -7,6 +7,20 @@ description: Bazel is a fast, scalable, multi-language and extensible build tool
   MODULE.bazel external-dependency system (Bzlmod), and the Bazel Central Registry — a public HTTP index registry that
   hosts community-maintained Bazel modules.
 type: Index
+deliveryModel:
+  model: saas
+  license: Apache License 2.0
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - license
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: unknown
