@@ -37,7 +37,7 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bazel-build.png
 tags:
 - Build Systems
-- Build Tools
+- Build Tool
 - Bzlmod
 - CI/CD
 - Developer Tools
@@ -94,7 +94,7 @@ apis:
     BUILD, BUILD.bazel, .bzl, MODULE.bazel, and WORKSPACE files are all evaluated by this API.
   humanURL: https://bazel.build/rules
   tags:
-  - Builds
+  - BUILD
   - DSL
   - Extension
   - Rules
