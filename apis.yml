@@ -210,6 +210,8 @@ apis:
   - type: GitHubRepository
     url: https://github.com/bazelbuild/bazel-central-registry
 common:
+- type: Website
+  url: https://bazel.build/
 - type: IssueTracker
   url: https://github.com/bazelbuild/remote-apis/issues
 - type: Releases
