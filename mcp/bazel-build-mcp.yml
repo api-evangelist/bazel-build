@@ -1,0 +1,20 @@
+generated: '2026-09-11'
+method: probed
+source: https://bazel.build/mcp
+status: published
+server:
+  name: bazel-build
+  transport: http
+  url: https://bazel.build/mcp
+deployment:
+  mode: remote
+  endpoint: https://bazel.build/mcp
+  verified: probed
+  probe: live
+  checked: '2026-09-11'
+  source: docs-check 2026-09-11 (endpoint found in the provider's own documentation, then probed)
+tools_note: No tool list captured. This manifest records a PROBED, reachable endpoint only; anonymous
+  tools/list was auth-gated or the server requires an initialize handshake this reachability probe does
+  not perform. Run signals/audit_mcp_authorship.py --probe to enumerate tools and settle platform-vs-provider
+  authorship. Do NOT derive a tool list from the OpenAPI and store it here -- that is a candidate manifest,
+  and it belongs under an X-MCPServerCandidate pointer.
