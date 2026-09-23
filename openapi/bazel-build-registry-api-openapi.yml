@@ -1,31 +1,9 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Bazel Central Modules Registry API
+  title: Bazel Central Registry API
   description: 'The Bazel Central Registry (BCR) is the default index registry consulted by Bzlmod,
 
-    Bazel''s external dependency management system. It exposes a stable, file-based HTTP
-
-    layout that any Bazel-compatible index registry can implement.
-
-
-    The protocol is defined at https://bazel.build/external/registry. Servers serve
-
-    static JSON and Starlark files at well-known paths under the registry root. The
-
-    canonical instance is hosted by the Bazel team at https://bcr.bazel.build/, with a
-
-    searchable web UI at https://registry.bazel.build/.
-
-
-    Bazel itself acts as the client: when Bzlmod resolves `bazel_dep(name = "foo", version = "1.2.3")`,
-
-    it fetches `/modules/foo/metadata.json`, `/modules/foo/1.2.3/MODULE.bazel`, and
-
-    `/modules/foo/1.2.3/source.json` to compute the dependency graph and download the
-
-    source archive.
-
-    '
+    Bazel''s external dependency management system.'
   version: '1.0'
   license:
     name: Apache 2.0
