@@ -46,7 +46,7 @@ tags:
 - Developer Tools
 - Hermetic Builds
 - Monorepo
-- Open-Source
+- Open Source
 - Remote Execution
 - Starlark
 tags_raw:
@@ -60,6 +60,7 @@ tags_raw:
 - Open Source
 - Remote Execution
 - Starlark
+- Open-Source
 created: '2026-05-25'
 modified: '2026-05-25'
 url: https://raw.githubusercontent.com/api-evangelist/bazel-build/refs/heads/main/apis.yml
