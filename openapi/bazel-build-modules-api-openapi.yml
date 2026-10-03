@@ -95,22 +95,6 @@ paths:
         '404':
           description: Module, version, or presubmit file not found
 components:
-  parameters:
-    Version:
-      name: version
-      in: path
-      required: true
-      description: Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`.
-      schema:
-        type: string
-    Module:
-      name: module
-      in: path
-      required: true
-      description: Module name, e.g. `rules_python`, `rules_go`, `protobuf`.
-      schema:
-        type: string
-        pattern: ^[a-z][a-z0-9_]*$
   schemas:
     Maintainer:
       type: object
@@ -122,6 +106,75 @@ components:
           format: email
         github:
           type: string
+    GitRepositorySource:
+      type: object
+      required:
+      - type
+      - remote
+      properties:
+        type:
+          type: string
+          enum:
+          - git_repository
+        remote:
+          type: string
+          format: uri
+        commit:
+          type: string
+        tag:
+          type: string
+        shallow_since:
+          type: string
+        patches:
+          type: object
+          additionalProperties:
+            type: string
+        patch_strip:
+          type: integer
+    ModuleSource:
+      type: object
+      description: Fetch instructions served at /modules/{module}/{version}/source.json. The `type` discriminator selects the variant.
+      required:
+      - type
+      discriminator:
+        propertyName: type
+        mapping:
+          archive: '#/components/schemas/ArchiveSource'
+          git_repository: '#/components/schemas/GitRepositorySource'
+          local_path: '#/components/schemas/LocalPathSource'
+      oneOf:
+      - $ref: '#/components/schemas/ArchiveSource'
+      - $ref: '#/components/schemas/GitRepositorySource'
+      - $ref: '#/components/schemas/LocalPathSource'
+    ModuleMetadata:
+      type: object
+      description: Module-level metadata served at /modules/{module}/metadata.json.
+      required:
+      - versions
+      properties:
+        homepage:
+          type: string
+          format: uri
+          description: Project homepage.
+        maintainers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Maintainer'
+        versions:
+          type: array
+          description: All published version strings for this module, in publication order.
+          items:
+            type: string
+        yanked_versions:
+          type: object
+          description: Map of yanked versions to a human-readable explanation. Bazel will refuse to resolve a yanked version unless --allow_yanked_versions is set.
+          additionalProperties:
+            type: string
+        repository:
+          type: array
+          items:
+            type: string
+          description: Optional upstream repository URLs.
     ArchiveSource:
       type: object
       required:
@@ -156,35 +209,6 @@ components:
           description: Map of overlay filename to SRI integrity. Files live under /modules/{module}/{version}/overlay/ and are written into the source tree after extraction.
           additionalProperties:
             type: string
-    ModuleMetadata:
-      type: object
-      description: Module-level metadata served at /modules/{module}/metadata.json.
-      required:
-      - versions
-      properties:
-        homepage:
-          type: string
-          format: uri
-          description: Project homepage.
-        maintainers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Maintainer'
-        versions:
-          type: array
-          description: All published version strings for this module, in publication order.
-          items:
-            type: string
-        yanked_versions:
-          type: object
-          description: Map of yanked versions to a human-readable explanation. Bazel will refuse to resolve a yanked version unless --allow_yanked_versions is set.
-          additionalProperties:
-            type: string
-        repository:
-          type: array
-          items:
-            type: string
-          description: Optional upstream repository URLs.
     LocalPathSource:
       type: object
       required:
@@ -198,43 +222,19 @@ components:
         path:
           type: string
           description: Filesystem path resolved relative to bazel_registry.json's module_base_path.
-    ModuleSource:
-      type: object
-      description: Fetch instructions served at /modules/{module}/{version}/source.json. The `type` discriminator selects the variant.
-      required:
-      - type
-      discriminator:
-        propertyName: type
-        mapping:
-          archive: '#/components/schemas/ArchiveSource'
-          git_repository: '#/components/schemas/GitRepositorySource'
-          local_path: '#/components/schemas/LocalPathSource'
-      oneOf:
-      - $ref: '#/components/schemas/ArchiveSource'
-      - $ref: '#/components/schemas/GitRepositorySource'
-      - $ref: '#/components/schemas/LocalPathSource'
-    GitRepositorySource:
-      type: object
-      required:
-      - type
-      - remote
-      properties:
-        type:
-          type: string
-          enum:
-          - git_repository
-        remote:
-          type: string
-          format: uri
-        commit:
-          type: string
-        tag:
-          type: string
-        shallow_since:
-          type: string
-        patches:
-          type: object
-          additionalProperties:
-            type: string
-        patch_strip:
-          type: integer
+  parameters:
+    Module:
+      name: module
+      in: path
+      required: true
+      description: Module name, e.g. `rules_python`, `rules_go`, `protobuf`.
+      schema:
+        type: string
+        pattern: ^[a-z][a-z0-9_]*$
+    Version:
+      name: version
+      in: path
+      required: true
+      description: Module version string. Bazel uses an extended SemVer ordering that also tolerates suffixes such as `1.2.3.bcr.1`.
+      schema:
+        type: string
