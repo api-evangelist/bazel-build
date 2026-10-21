@@ -1,0 +1,27 @@
+generated: '2026-10-20'
+method: searched
+checked:
+- vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+source:
+- vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+edges:
+- partner_name: VS Code Marketplace (vs-code-marketplace)
+  partner: vs-code-marketplace
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: vs-code-marketplace
+  evidence: https://marketplace.visualstudio.com/publishers/BazelBuild
+  mirror_of: vs-code-marketplace/integrations/vs-code-marketplace-integration-edges.yml
+  apps:
+  - Bazel
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: IDE / developer extension marketplace listing
+  badges:
+  - Verified publisher
+  - Verified domain
